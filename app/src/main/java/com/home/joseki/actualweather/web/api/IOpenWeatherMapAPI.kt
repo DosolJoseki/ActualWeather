@@ -4,7 +4,7 @@ import com.home.joseki.actualweather.model.Weather
 import io.reactivex.Observable
 import retrofit2.http.*
 
-interface OpenWeatherMapAPI {
+interface IOpenWeatherMapAPI {
     @GET("forecast")
     fun getWeatherByCity(
         @Query("lat") lat: String,

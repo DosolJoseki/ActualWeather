@@ -2,12 +2,12 @@ package com.home.joseki.actualweather.repositories
 
 import com.home.joseki.actualweather.model.City
 import com.home.joseki.actualweather.model.Weather
-import com.home.joseki.actualweather.web.api.OpenWeatherMapAPI
+import com.home.joseki.actualweather.web.api.IOpenWeatherMapAPI
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 
 class WeatherRepository(
-        private val openWeatherMapAPI: OpenWeatherMapAPI
+        private val openWeatherMapAPI: IOpenWeatherMapAPI
         ):IWeatherRepository {
 
     private val UNITS_TYPE_METRIC = "metric"
