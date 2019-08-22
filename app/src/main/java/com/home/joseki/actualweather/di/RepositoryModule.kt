@@ -2,6 +2,7 @@ package com.home.joseki.actualweather.di
 
 import com.home.joseki.actualweather.di.providers.WeatherRepositoryProvider
 import com.home.joseki.actualweather.repositories.IWeatherRepository
+import com.home.joseki.actualweather.repositories.WeatherRepository
 import toothpick.config.Module
 
 class RepositoryModule: Module() {

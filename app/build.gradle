@@ -64,6 +64,7 @@ dependencies {
     testImplementation 'com.github.stephanenicolas.toothpick:toothpick-testing-junit5:2.1.0'
     implementation 'com.github.stephanenicolas.toothpick:toothpick-runtime:2.1.0'
     implementation 'com.github.stephanenicolas.toothpick:smoothie-androidx:2.1.0'
+    //kapt 'com.github.stephanenicolas.toothpick:toothpick-compiler:2.1.0'
 
     //facebook
     implementation 'com.facebook.stetho:stetho:1.5.1'
