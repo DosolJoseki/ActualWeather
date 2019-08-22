@@ -1,8 +1,8 @@
 package com.home.joseki.actualweather.model
 
 class WeatherDesc {
-    var id: String? = null
-    var icon: String? = null
-    var description: String? = null
-    var main: String? = null
+    val id: String? = null
+    val icon: String? = null
+    val description: String? = null
+    val main: String? = null
 }

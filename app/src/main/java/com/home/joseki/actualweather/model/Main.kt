@@ -1,12 +1,12 @@
 package com.home.joseki.actualweather.model
 
 class Main {
-    var temp_kf: String? = null
-    var humidity: String? = null
-    var pressure: String? = null
-    var temp_max: String? = null
-    var sea_level: String? = null
-    var temp_min: String? = null
-    var temp: String? = null
-    var grnd_level: String? = null
+    val temp_kf: String? = null
+    val humidity: String? = null
+    val pressure: String? = null
+    val temp_max: String? = null
+    val sea_level: String? = null
+    val temp_min: String? = null
+    val temp: String? = null
+    val grnd_level: String? = null
 }

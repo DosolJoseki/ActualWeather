@@ -1,8 +1,8 @@
 package com.home.joseki.actualweather.model
 
 class City {
-    var coord: Coord = Coord()
-    var id: String? = null
-    var name: String? = null
-    var country: String? = null
+    val coord: Coord = Coord()
+    val id: String? = null
+    val name: String? = null
+    val country: String? = null
 }

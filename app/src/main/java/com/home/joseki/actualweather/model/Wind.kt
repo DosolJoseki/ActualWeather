@@ -1,6 +1,6 @@
 package com.home.joseki.actualweather.model
 
 class Wind {
-    var speed: String? = null
-    var deg: String? = null
+    val speed: String? = null
+    val deg: String? = null
 }
