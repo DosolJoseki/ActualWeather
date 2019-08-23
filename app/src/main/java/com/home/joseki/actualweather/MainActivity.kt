@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import com.home.joseki.actualweather.adapters.CityAdapter
+import com.home.joseki.actualweather.adapters.WeatherAdapter
 import com.home.joseki.actualweather.di.Scopes
 import com.home.joseki.actualweather.interactors.ICityInteractor
 import com.home.joseki.actualweather.interactors.IWeatherInteractor
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var presenter: MainActivityPresenter
     private lateinit var citySpinner: SearchableSpinner
+    private lateinit var weatherAdapter: WeatherAdapter
 
     private val BUTTON_SELECT = "Select Item"
     private val BUTTON_BACK = "Back"
@@ -41,6 +43,8 @@ class MainActivity : AppCompatActivity() {
         val scope = Toothpick.openScope(Scopes.APP)
         Toothpick.inject(this, scope)
         presenter = MainActivityPresenter(this, scope.getInstance(IWeatherInteractor::class.java), scope.getInstance(ICityInteractor::class.java))
+        weatherAdapter = WeatherAdapter(this)
+        recyclerDay.adapter = weatherAdapter
         citySpinnerPreparation()
     }
 
@@ -62,8 +66,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun updateWeatherInfo(weather: String) {
-        tvTemp.text = weather
+    fun updateWeatherInfo(weather: Weather) {
+        tvTemp.text = String.format(getString(R.string.temp_info), weather.list!![0].main!!.temp)
+
+        weatherAdapter.clearItems()
+        weatherAdapter.setItems(weather.list)
     }
 
     fun updateWeatherIcon(icon: String){

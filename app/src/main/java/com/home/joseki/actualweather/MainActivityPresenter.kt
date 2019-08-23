@@ -28,13 +28,9 @@ class MainActivityPresenter @Inject constructor(
     }
 
     fun weatherProcessing(weather: Weather){
-        val builder = StringBuilder()
-        builder.append(weather.list!![0].main!!.temp)
-        builder.append("C,  ")
-        builder.append(weather.list[0].weather!![0].description)
-
-        view.updateWeatherIcon(weather.list[0].weather!![0].icon!!)
-        view.updateWeatherInfo(builder.toString())
+        view.updateWeatherIcon(weather.list!![0].weather!![0].icon!!)
+        view.updateWeatherInfo(weather)
+        view.showUpdateProgress(false)
     }
 
     fun getCities(): CityList = cityInteractor.getCities(view)
