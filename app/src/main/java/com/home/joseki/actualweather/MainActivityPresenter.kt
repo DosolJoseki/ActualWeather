@@ -1,23 +1,43 @@
 package com.home.joseki.actualweather
 
+import com.home.joseki.actualweather.interactors.ICityInteractor
 import com.home.joseki.actualweather.interactors.IWeatherInteractor
-import com.home.joseki.actualweather.model.City
+import com.home.joseki.actualweather.model.CityList
+import com.home.joseki.actualweather.model.Weather
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import java.lang.StringBuilder
 import javax.inject.Inject
 
 class MainActivityPresenter @Inject constructor(
     private val view: MainActivity,
-    private val weatherInteractor: IWeatherInteractor
+    private val weatherInteractor: IWeatherInteractor,
+    private val cityInteractor: ICityInteractor
 ) {
+    private var cityList: CityList = CityList()
 
     private val compositeDisposable = CompositeDisposable()
 
-    fun getWeatherInfo(city: City){
-        weatherInteractor.getWeather(city)
+    fun getWeatherInfo(cityInfo: CityList.CityInfo){
+        weatherInteractor.getWeather(cityInfo)
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { view.showUpdateProgress(false) }
+            .subscribe {
+                view.showUpdateProgress(false)
+                weatherProcessing(it)
+            }
     }
+
+    fun weatherProcessing(weather: Weather){
+        val builder = StringBuilder()
+        builder.append(weather.list!![0].main!!.temp)
+        builder.append("C,  ")
+        builder.append(weather.list[0].weather!![0].description)
+
+        view.updateWeatherIcon(weather.list[0].weather!![0].icon!!)
+        view.updateWeatherInfo(builder.toString())
+    }
+
+    fun getCities(): CityList = cityInteractor.getCities(view)
 
     fun onGetWeatherInfo() {
 
