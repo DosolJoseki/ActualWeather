@@ -1,5 +1,6 @@
 package com.home.joseki.actualweather
 
+import android.content.SharedPreferences
 import com.home.joseki.actualweather.interactors.ICityInteractor
 import com.home.joseki.actualweather.interactors.IWeatherInteractor
 import com.home.joseki.actualweather.model.CityList
@@ -15,10 +16,19 @@ class MainActivityPresenter @Inject constructor(
     private val cityInteractor: ICityInteractor
 ) {
     private var cityList: CityList = CityList()
+    private val STORAGE_NAME = "SelectedCity"
+    private lateinit var city: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
 
     private val compositeDisposable = CompositeDisposable()
 
     fun getWeatherInfo(cityInfo: CityList.CityInfo){
+        city = view.getSharedPreferences(STORAGE_NAME, 0);
+        editor = city.edit();
+        editor.putString(STORAGE_NAME, cityInfo.city)
+        editor.apply()
+        view.updateCityAdapter(cityInfo.city!! + ", " + cityInfo.country)
+
         weatherInteractor.getWeather(cityInfo)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {

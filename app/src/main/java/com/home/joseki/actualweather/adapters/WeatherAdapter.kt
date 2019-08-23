@@ -13,6 +13,7 @@ import java.util.ArrayList
 
 class WeatherAdapter(private val context: Context) : RecyclerView.Adapter<WeatherAdapter.ProjectViewHolder>() {
     private val weatherItems = ArrayList<WeatherItem>()
+    private var selectedItem = 0
 
     fun setItems(list: List<WeatherItem>) {
         weatherItems.addAll(list)
@@ -30,11 +31,11 @@ class WeatherAdapter(private val context: Context) : RecyclerView.Adapter<Weathe
         private val tvPressure: TextView = itemView.findViewById(R.id.tvPressure)
         private val tvWind: TextView = itemView.findViewById(R.id.tvWind)
 
-        fun bind(item: WeatherItem) {
+        fun bind(item: WeatherItem, i: Int) {
             tvDate.text = item.dt_txt
             tvTemp.text = String.format(context.getString(R.string.temp_info), item.main!!.temp)
-            tvPressure.text = item.main.pressure
-            tvWind.text = item.wind!!.speed + "  " + item.wind!!.deg
+            tvWind.text = item.wind!!.speed + "м/с"
+            tvPressure.text = item.main.pressure + "мм.рт.ст."
         }
     }
 
@@ -45,7 +46,7 @@ class WeatherAdapter(private val context: Context) : RecyclerView.Adapter<Weathe
     }
 
     override fun onBindViewHolder(@NonNull projectViewHolder: ProjectViewHolder, i: Int) {
-        projectViewHolder.bind(weatherItems[i])
+        projectViewHolder.bind(weatherItems[i], i)
     }
 
     override fun getItemCount(): Int {

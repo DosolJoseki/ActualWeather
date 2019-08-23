@@ -2,6 +2,7 @@ package com.home.joseki.actualweather
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.AdapterView
 import com.home.joseki.actualweather.adapters.CityAdapter
@@ -9,21 +10,22 @@ import com.home.joseki.actualweather.adapters.WeatherAdapter
 import com.home.joseki.actualweather.di.Scopes
 import com.home.joseki.actualweather.interactors.ICityInteractor
 import com.home.joseki.actualweather.interactors.IWeatherInteractor
-import com.home.joseki.actualweather.model.City
 import com.home.joseki.actualweather.model.CityList
-import com.home.joseki.actualweather.model.Coord
 import com.home.joseki.actualweather.model.Weather
 import com.squareup.picasso.Picasso
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner
 import kotlinx.android.synthetic.main.activity_main.*
 import toothpick.Toothpick
-import java.util.ArrayList
+
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var presenter: MainActivityPresenter
     private lateinit var citySpinner: SearchableSpinner
     private lateinit var weatherAdapter: WeatherAdapter
+    private lateinit var cityAdapter: CityAdapter
+    private lateinit var cityInfo: CityList.CityInfo
 
     private val BUTTON_SELECT = "Select Item"
     private val BUTTON_BACK = "Back"
@@ -45,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         presenter = MainActivityPresenter(this, scope.getInstance(IWeatherInteractor::class.java), scope.getInstance(ICityInteractor::class.java))
         weatherAdapter = WeatherAdapter(this)
         recyclerDay.adapter = weatherAdapter
+        recyclerDay.layoutManager = LinearLayoutManager(this)
+        updateProgress.setOnRefreshListener { presenter.getWeatherInfo(cityInfo) }
         citySpinnerPreparation()
     }
 
@@ -53,17 +57,24 @@ class MainActivity : AppCompatActivity() {
         citySpinner.setTitle(BUTTON_SELECT)
         citySpinner.setPositiveButton(BUTTON_BACK)
 
-        citySpinner.adapter = CityAdapter(this, R.id.city_spinner, presenter.getCities().getCityNamesList())
+        cityAdapter = CityAdapter(this, R.id.city_spinner, presenter.getCities().getCityNamesList())
+        citySpinner.adapter = cityAdapter
         citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 val info = presenter.getCities().Cities!![position]
-                presenter.getWeatherInfo(info)
+                cityInfo = info
+                presenter.getWeatherInfo(cityInfo)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
 
             }
         }
+    }
+
+    fun updateCityAdapter(compareValue: String){
+        val spinnerPosition = cityAdapter.getPosition(compareValue)
+        citySpinner.setSelection(spinnerPosition)
     }
 
     fun updateWeatherInfo(weather: Weather) {
