@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cities: List<String>
     private lateinit var citiesClass: List<CityList.CityInfo>
 
-    private val BUTTON_SELECT = "Select Item"
     private val BUTTON_BACK = "Back"
 
 
@@ -58,7 +57,6 @@ class MainActivity : AppCompatActivity() {
 
     fun citySpinnerPreparation() {
         citySpinner = this.findViewById(R.id.city_spinner)
-        citySpinner.setTitle(BUTTON_SELECT)
         citySpinner.setPositiveButton(BUTTON_BACK)
 
         cities = presenter.getCities().getCityNamesList()
@@ -71,6 +69,7 @@ class MainActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 val info = citiesClass[position]
                 cityInfo = info
+                citySpinner.setTitle(cityInfo.city)
                 presenter.getWeatherInfo(cityInfo)
             }
 

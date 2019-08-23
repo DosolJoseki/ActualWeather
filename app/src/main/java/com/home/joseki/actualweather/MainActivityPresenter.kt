@@ -7,7 +7,6 @@ import com.home.joseki.actualweather.model.CityList
 import com.home.joseki.actualweather.model.Weather
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import java.lang.StringBuilder
 import javax.inject.Inject
 
 class MainActivityPresenter @Inject constructor(
@@ -15,7 +14,6 @@ class MainActivityPresenter @Inject constructor(
     private val weatherInteractor: IWeatherInteractor,
     private val cityInteractor: ICityInteractor
 ) {
-    private var cityList: CityList = CityList()
     private val STORAGE_NAME = "SelectedCity"
     private lateinit var city: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
