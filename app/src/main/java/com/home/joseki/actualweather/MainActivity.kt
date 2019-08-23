@@ -7,6 +7,8 @@ import android.view.View
 import android.widget.AdapterView
 import com.home.joseki.actualweather.adapters.CityAdapter
 import com.home.joseki.actualweather.adapters.WeatherAdapter
+import com.home.joseki.actualweather.comparators.CityComparator
+import com.home.joseki.actualweather.comparators.CityComparatorByClass
 import com.home.joseki.actualweather.di.Scopes
 import com.home.joseki.actualweather.interactors.ICityInteractor
 import com.home.joseki.actualweather.interactors.IWeatherInteractor
@@ -16,7 +18,7 @@ import com.squareup.picasso.Picasso
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner
 import kotlinx.android.synthetic.main.activity_main.*
 import toothpick.Toothpick
-
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var weatherAdapter: WeatherAdapter
     private lateinit var cityAdapter: CityAdapter
     private lateinit var cityInfo: CityList.CityInfo
+    private lateinit var cities: List<String>
+    private lateinit var citiesClass: List<CityList.CityInfo>
 
     private val BUTTON_SELECT = "Select Item"
     private val BUTTON_BACK = "Back"
@@ -57,11 +61,15 @@ class MainActivity : AppCompatActivity() {
         citySpinner.setTitle(BUTTON_SELECT)
         citySpinner.setPositiveButton(BUTTON_BACK)
 
-        cityAdapter = CityAdapter(this, R.id.city_spinner, presenter.getCities().getCityNamesList())
+        cities = presenter.getCities().getCityNamesList()
+        citiesClass = presenter.getCities().Cities!!
+        Collections.sort(cities, CityComparator())
+        Collections.sort(citiesClass, CityComparatorByClass())
+        cityAdapter = CityAdapter(this, R.id.city_spinner, cities)
         citySpinner.adapter = cityAdapter
         citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                val info = presenter.getCities().Cities!![position]
+                val info = citiesClass[position]
                 cityInfo = info
                 presenter.getWeatherInfo(cityInfo)
             }

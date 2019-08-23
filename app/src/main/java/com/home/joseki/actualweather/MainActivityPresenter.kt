@@ -45,18 +45,6 @@ class MainActivityPresenter @Inject constructor(
 
     fun getCities(): CityList = cityInteractor.getCities(view)
 
-    fun onGetWeatherInfo() {
-
-    }
-
-    fun onCitySelectClick() {
-
-    }
-
-    fun onCitySelected() {
-
-    }
-
     fun onDestroy() {
         compositeDisposable.clear()
     }

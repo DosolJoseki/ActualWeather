@@ -3,7 +3,7 @@ package com.home.joseki.actualweather.model
 import java.util.ArrayList
 
 class CityList {
-    val Cities: List<CityInfo>? = null
+    var Cities: List<CityInfo>? = null
 
     inner class CityInfo {
         val city: String? = null
