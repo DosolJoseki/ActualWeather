@@ -1,5 +1,8 @@
 package com.home.joseki.actualweather.model
 
-class Clouds {
-    val all: String? = null
-}
+import com.google.gson.annotations.SerializedName
+
+data class Clouds(
+    @SerializedName("all")
+    private val all: String = ""
+)

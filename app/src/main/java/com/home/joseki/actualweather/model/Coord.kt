@@ -1,6 +1,10 @@
 package com.home.joseki.actualweather.model
 
-class Coord {
-    val lon: String = "0.0"
-    val lat: String = "0.0"
-}
+import com.google.gson.annotations.SerializedName
+
+data class Coord(
+    @SerializedName("lon")
+    private val lon: String = "",
+    @SerializedName("lat")
+    private val lat: String = ""
+)
