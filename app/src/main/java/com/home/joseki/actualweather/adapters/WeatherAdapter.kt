@@ -11,9 +11,10 @@ import com.home.joseki.actualweather.model.WeatherItem
 import io.reactivex.annotations.NonNull
 import java.util.ArrayList
 
-class WeatherAdapter(private val context: Context) : RecyclerView.Adapter<WeatherAdapter.ProjectViewHolder>() {
+class WeatherAdapter(
+    private val context: Context
+) : RecyclerView.Adapter<WeatherAdapter.ProjectViewHolder>() {
     private val weatherItems = ArrayList<WeatherItem>()
-    private var selectedItem = 0
 
     fun setItems(list: List<WeatherItem>) {
         weatherItems.addAll(list)
@@ -31,11 +32,11 @@ class WeatherAdapter(private val context: Context) : RecyclerView.Adapter<Weathe
         private val tvPressure: TextView = itemView.findViewById(R.id.tvPressure)
         private val tvWind: TextView = itemView.findViewById(R.id.tvWind)
 
-        fun bind(item: WeatherItem, i: Int) {
+        fun bind(item: WeatherItem) {
             tvDate.text = item.dtTxt
-            tvTemp.text = String.format(context.getString(R.string.temp_info), item.main!!.temp)
-            tvWind.text = item.wind!!.speed + "м/с"
-            tvPressure.text = item.main.pressure + "мм.рт.ст."
+            tvTemp.text = String.format(context.getString(R.string.temp_info), item.main.temp)
+            tvWind.text = String.format(context.getString(R.string.wind_info), item.wind.speed)
+            tvPressure.text = String.format(context.getString(R.string.pressure_info), item.main.pressure)
         }
     }
 
@@ -46,7 +47,7 @@ class WeatherAdapter(private val context: Context) : RecyclerView.Adapter<Weathe
     }
 
     override fun onBindViewHolder(@NonNull projectViewHolder: ProjectViewHolder, i: Int) {
-        projectViewHolder.bind(weatherItems[i], i)
+        projectViewHolder.bind(weatherItems[i])
     }
 
     override fun getItemCount(): Int {

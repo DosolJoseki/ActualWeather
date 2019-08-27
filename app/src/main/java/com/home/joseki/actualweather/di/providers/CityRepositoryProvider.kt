@@ -1,6 +1,5 @@
 package com.home.joseki.actualweather.di.providers
 
-import android.app.Activity
 import com.home.joseki.actualweather.repositories.CityRepository
 import com.home.joseki.actualweather.repositories.ICityRepository
 import javax.inject.Inject

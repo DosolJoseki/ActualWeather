@@ -6,11 +6,11 @@ data class CityList(
     var Cities: List<CityInfo>? = null
 ) {
     fun getCityNamesList():List<String>{
-        val infosList = ArrayList<String>()
+        val infoList = ArrayList<String>()
         for (info in Cities!!) {
-            infosList.add(info.city + ", " + info.country)
+            infoList.add(info.city + ", " + info.country)
         }
 
-        return infosList
+        return infoList
     }
 }

@@ -7,7 +7,7 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 
-class CityRepository(): ICityRepository {
+class CityRepository: ICityRepository {
     override fun getCities(activity: Activity): CityList {
         try {
             val reader = BufferedReader(

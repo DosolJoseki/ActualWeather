@@ -7,8 +7,8 @@ import android.view.View
 import android.widget.AdapterView
 import com.home.joseki.actualweather.adapters.CityAdapter
 import com.home.joseki.actualweather.adapters.WeatherAdapter
-import com.home.joseki.actualweather.comparators.CityComparator
-import com.home.joseki.actualweather.comparators.CityComparatorByClass
+import com.home.joseki.actualweather.comparators.CityNameComparator
+import com.home.joseki.actualweather.comparators.CityInfoComparator
 import com.home.joseki.actualweather.di.Scopes
 import com.home.joseki.actualweather.interactors.ICityInteractor
 import com.home.joseki.actualweather.interactors.IWeatherInteractor
@@ -22,7 +22,6 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var presenter: MainActivityPresenter
     private lateinit var citySpinner: SearchableSpinner
     private lateinit var weatherAdapter: WeatherAdapter
@@ -31,8 +30,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cities: List<String>
     private lateinit var citiesClass: List<CityInfo>
 
-    private val BUTTON_BACK = "Back"
-
+    companion object {
+        private const val BUTTON_BACK = "Back"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,8 +61,8 @@ class MainActivity : AppCompatActivity() {
 
         cities = presenter.getCities().getCityNamesList()
         citiesClass = presenter.getCities().Cities!!
-        Collections.sort(cities, CityComparator())
-        Collections.sort(citiesClass, CityComparatorByClass())
+        Collections.sort(cities, CityNameComparator())
+        Collections.sort(citiesClass, CityInfoComparator())
         cityAdapter = CityAdapter(this, R.id.city_spinner, cities)
         citySpinner.adapter = cityAdapter
         citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun updateWeatherInfo(weather: Weather) {
-        tvTemp.text = String.format(getString(R.string.temp_info), weather.list!![0].main!!.temp)
+        tvTemp.text = String.format(getString(R.string.temp_info), weather.list!![0].main.temp)
 
         weatherAdapter.clearItems()
         weatherAdapter.setItems(weather.list)
@@ -93,5 +93,10 @@ class MainActivity : AppCompatActivity() {
 
     fun updateWeatherIcon(icon: String){
         Picasso.get().load(String.format(getString(R.string.icon_url), icon)).into(ivWeatherIcon)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDestroy()
     }
 }

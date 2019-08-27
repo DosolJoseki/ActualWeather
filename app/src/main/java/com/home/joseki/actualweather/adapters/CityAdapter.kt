@@ -2,18 +2,21 @@ package com.home.joseki.actualweather.adapters
 
 import android.content.Context
 import android.graphics.Color
-import android.support.v4.content.ContextCompat
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import com.home.joseki.actualweather.R
 
 class CityAdapter (
-    context: Context, textViewResourceId: Int,
+    context: Context,
+    textViewResourceId: Int,
     private val cityInfos: List<String>
 ) : ArrayAdapter<String>(context, textViewResourceId, cityInfos) {
+
+    companion object {
+        private const val VIEW_HEIGHT = 60
+    }
 
     override fun getCount(): Int {
         return cityInfos.size
@@ -36,14 +39,11 @@ class CityAdapter (
         return view
     }
 
-    override fun getDropDownView(
-        position: Int, convertView: View?,
-        parent: ViewGroup
-    ): View {
+    override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = TextView(context)
         view.setTextColor(Color.BLACK)
         view.text = cityInfos[position]
-        view.height = 60
+        view.height = VIEW_HEIGHT
 
         return view
     }

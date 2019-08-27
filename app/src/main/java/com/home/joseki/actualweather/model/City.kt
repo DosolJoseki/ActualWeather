@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class City(
     @SerializedName("coord")
-    val coord: Coord = Coord(),
+    val coordinates: Coordinates = Coordinates(),
     @SerializedName("id")
     val id: String = "",
     @SerializedName("name")
