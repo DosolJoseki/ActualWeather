@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 data class City(
     @SerializedName("coord")
-    private val coord: Coord = Coord(),
+    val coord: Coord = Coord(),
     @SerializedName("id")
-    private val id: String = "",
+    val id: String = "",
     @SerializedName("name")
-    private val name: String = "",
+    val name: String = "",
     @SerializedName("country")
-    private val country: String = ""
+    val country: String = ""
  )

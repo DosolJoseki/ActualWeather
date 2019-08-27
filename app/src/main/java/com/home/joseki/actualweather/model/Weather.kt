@@ -1,9 +1,16 @@
 package com.home.joseki.actualweather.model
 
-class Weather {
-    val message: String? = null
-    val cnt: String? = null
-    val cod: String? = null
-    val list: List<WeatherItem>? = null
-    val city: City? = null
-}
+import com.google.gson.annotations.SerializedName
+
+data class Weather(
+    @SerializedName("message")
+    val message: String = "",
+    @SerializedName("cnt")
+    val cnt: String = "",
+    @SerializedName("cod")
+    val cod: String = "",
+    @SerializedName("list")
+    val list: List<WeatherItem>? = null,
+    @SerializedName("city")
+    val city: City = City()
+)

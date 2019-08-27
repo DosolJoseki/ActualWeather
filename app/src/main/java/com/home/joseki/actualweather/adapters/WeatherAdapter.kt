@@ -32,7 +32,7 @@ class WeatherAdapter(private val context: Context) : RecyclerView.Adapter<Weathe
         private val tvWind: TextView = itemView.findViewById(R.id.tvWind)
 
         fun bind(item: WeatherItem, i: Int) {
-            tvDate.text = item.dt_txt
+            tvDate.text = item.dtTxt
             tvTemp.text = String.format(context.getString(R.string.temp_info), item.main!!.temp)
             tvWind.text = item.wind!!.speed + "м/с"
             tvPressure.text = item.main.pressure + "мм.рт.ст."

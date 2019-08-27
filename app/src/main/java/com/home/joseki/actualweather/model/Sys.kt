@@ -1,5 +1,8 @@
 package com.home.joseki.actualweather.model
 
-class Sys {
-    val pod: String? = null
-}
+import com.google.gson.annotations.SerializedName
+
+data class Sys(
+    @SerializedName("pod")
+    val pod: String = ""
+)
