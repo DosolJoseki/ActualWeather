@@ -1,6 +1,7 @@
 package com.home.joseki.actualweather
 
 import android.content.SharedPreferences
+import android.content.res.AssetManager
 import com.home.joseki.actualweather.interactors.ICityInteractor
 import com.home.joseki.actualweather.interactors.IWeatherInteractor
 import com.home.joseki.actualweather.model.CityInfo
@@ -18,6 +19,7 @@ class MainActivityPresenter @Inject constructor(
 
     companion object {
         private const val STORAGE_NAME = "SelectedCity"
+        private const val PREF_MODE_0 = 0
     }
 
     private lateinit var city: SharedPreferences
@@ -26,7 +28,7 @@ class MainActivityPresenter @Inject constructor(
     private val compositeDisposable = CompositeDisposable()
 
     fun getWeatherInfo(cityInfo: CityInfo){
-        city = view.getSharedPreferences(STORAGE_NAME, 0)
+        city = view.getSharedPreferences(STORAGE_NAME, PREF_MODE_0)
         editor = city.edit()
         editor.putString(STORAGE_NAME, cityInfo.city)
         editor.apply()
@@ -46,7 +48,7 @@ class MainActivityPresenter @Inject constructor(
         view.showUpdateProgress(false)
     }
 
-    fun getCities(): CityList = cityInteractor.getCities(view)
+    fun getCities(): CityList = cityInteractor.getCities()
 
     fun onDestroy(){
         compositeDisposable.clear()

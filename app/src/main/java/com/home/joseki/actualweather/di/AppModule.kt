@@ -1,11 +1,12 @@
 package com.home.joseki.actualweather.di
 
 import android.content.Context
-import com.home.joseki.actualweather.App
+import android.content.res.AssetManager
 import toothpick.config.Module
 
-class AppModule(app: App) : Module() {
+class AppModule(context: Context) : Module() {
     init {
-        bind(Context::class.java).toInstance(app)
+        bind(Context::class.java).toInstance(context)
+        bind(AssetManager::class.java).toInstance(context.assets)
     }
 }

@@ -37,14 +37,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-    }
-
-    fun showUpdateProgress(show: Boolean){
-        updateProgress.isRefreshing = show
-    }
-
-    override fun onStart() {
-        super.onStart()
         val scope = Toothpick.openScope(Scopes.APP)
         Toothpick.inject(this, scope)
         presenter = MainActivityPresenter(this, scope.getInstance(IWeatherInteractor::class.java), scope.getInstance(ICityInteractor::class.java))
@@ -53,6 +45,10 @@ class MainActivity : AppCompatActivity() {
         recyclerDay.layoutManager = LinearLayoutManager(this)
         updateProgress.setOnRefreshListener { presenter.getWeatherInfo(cityInfo) }
         citySpinnerPreparation()
+    }
+
+    fun showUpdateProgress(show: Boolean){
+        updateProgress.isRefreshing = show
     }
 
     fun citySpinnerPreparation() {

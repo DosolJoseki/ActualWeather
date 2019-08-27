@@ -1,7 +1,7 @@
-package com.home.joseki.actualweather.interactors
+package com.home.joseki.actualweather.data.filesource
 
 import com.home.joseki.actualweather.model.CityList
 
-interface ICityInteractor {
+interface ICitySource {
     fun getCities(): CityList
 }

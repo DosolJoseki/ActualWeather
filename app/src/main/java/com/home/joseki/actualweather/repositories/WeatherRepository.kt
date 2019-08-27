@@ -17,6 +17,5 @@ class WeatherRepository(
 
     override fun getWeather(cityInfo: CityInfo): Observable<Weather> =
         openWeatherMapAPI.getWeatherByCity(cityInfo.lat, cityInfo.lng, UNITS_TYPE_METRIC, OPEN_WEATHER_API_KEY)
-            //.doOnNext()
             .subscribeOn(Schedulers.io())
 }
