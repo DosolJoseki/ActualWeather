@@ -3,6 +3,7 @@ package com.home.joseki.actualweather
 import android.content.SharedPreferences
 import com.home.joseki.actualweather.interactors.ICityInteractor
 import com.home.joseki.actualweather.interactors.IWeatherInteractor
+import com.home.joseki.actualweather.model.CityInfo
 import com.home.joseki.actualweather.model.CityList
 import com.home.joseki.actualweather.model.Weather
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,7 +21,7 @@ class MainActivityPresenter @Inject constructor(
 
     private val compositeDisposable = CompositeDisposable()
 
-    fun getWeatherInfo(cityInfo: CityList.CityInfo){
+    fun getWeatherInfo(cityInfo: CityInfo){
         city = view.getSharedPreferences(STORAGE_NAME, 0);
         editor = city.edit();
         editor.putString(STORAGE_NAME, cityInfo.city)

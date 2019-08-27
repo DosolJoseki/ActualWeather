@@ -12,7 +12,7 @@ import com.home.joseki.actualweather.comparators.CityComparatorByClass
 import com.home.joseki.actualweather.di.Scopes
 import com.home.joseki.actualweather.interactors.ICityInteractor
 import com.home.joseki.actualweather.interactors.IWeatherInteractor
-import com.home.joseki.actualweather.model.CityList
+import com.home.joseki.actualweather.model.CityInfo
 import com.home.joseki.actualweather.model.Weather
 import com.squareup.picasso.Picasso
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner
@@ -27,9 +27,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var citySpinner: SearchableSpinner
     private lateinit var weatherAdapter: WeatherAdapter
     private lateinit var cityAdapter: CityAdapter
-    private lateinit var cityInfo: CityList.CityInfo
+    private lateinit var cityInfo: CityInfo
     private lateinit var cities: List<String>
-    private lateinit var citiesClass: List<CityList.CityInfo>
+    private lateinit var citiesClass: List<CityInfo>
 
     private val BUTTON_BACK = "Back"
 
