@@ -30,10 +30,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cities: List<String>
     private lateinit var citiesClass: List<CityInfo>
 
-    companion object {
-        private const val BUTTON_BACK = "Back"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -51,9 +47,9 @@ class MainActivity : AppCompatActivity() {
         updateProgress.isRefreshing = show
     }
 
-    fun citySpinnerPreparation() {
+    private fun citySpinnerPreparation() {
         citySpinner = this.findViewById(R.id.city_spinner)
-        citySpinner.setPositiveButton(BUTTON_BACK)
+        citySpinner.setPositiveButton(getString(R.string.button_back))
 
         cities = presenter.getCities().getCityNamesList()
         citiesClass = presenter.getCities().Cities!!

@@ -1,7 +1,6 @@
 package com.home.joseki.actualweather
 
 import android.content.SharedPreferences
-import android.content.res.AssetManager
 import com.home.joseki.actualweather.interactors.ICityInteractor
 import com.home.joseki.actualweather.interactors.IWeatherInteractor
 import com.home.joseki.actualweather.model.CityInfo

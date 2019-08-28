@@ -7,4 +7,5 @@
     <string name="temp_info">%1$s°C</string>
     <string name="wind_info">%1$s м/с</string>
     <string name="pressure_info">%1$s м/с</string>
+    <string name="button_back">Back</string>
 </resources>
