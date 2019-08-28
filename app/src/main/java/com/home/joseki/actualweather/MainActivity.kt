@@ -15,7 +15,6 @@ import com.home.joseki.actualweather.interactors.IWeatherInteractor
 import com.home.joseki.actualweather.model.CityInfo
 import com.home.joseki.actualweather.model.Weather
 import com.squareup.picasso.Picasso
-import com.toptoche.searchablespinnerlibrary.SearchableSpinner
 import kotlinx.android.synthetic.main.activity_main.*
 import toothpick.Toothpick
 import java.util.*
@@ -23,7 +22,6 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var presenter: MainActivityPresenter
-    private lateinit var citySpinner: SearchableSpinner
     private lateinit var weatherAdapter: WeatherAdapter
     private lateinit var cityAdapter: CityAdapter
     private lateinit var cityInfo: CityInfo
@@ -48,20 +46,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun citySpinnerPreparation() {
-        citySpinner = this.findViewById(R.id.city_spinner)
-        citySpinner.setPositiveButton(getString(R.string.button_back))
+        city_spinner.setPositiveButton(getString(R.string.button_back))
 
         cities = presenter.getCities().getCityNamesList()
         citiesClass = presenter.getCities().Cities!!
         Collections.sort(cities, CityNameComparator())
         Collections.sort(citiesClass, CityInfoComparator())
         cityAdapter = CityAdapter(this, R.id.city_spinner, cities)
-        citySpinner.adapter = cityAdapter
-        citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        city_spinner.adapter = cityAdapter
+        city_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 val info = citiesClass[position]
                 cityInfo = info
-                citySpinner.setTitle(cityInfo.city)
+                city_spinner.setTitle(cityInfo.city)
                 presenter.getWeatherInfo(cityInfo)
             }
 
@@ -73,14 +70,13 @@ class MainActivity : AppCompatActivity() {
 
     fun updateCityAdapter(compareValue: String){
         val spinnerPosition = cityAdapter.getPosition(compareValue)
-        citySpinner.setSelection(spinnerPosition)
+        city_spinner.setSelection(spinnerPosition)
     }
 
     fun updateWeatherInfo(weather: Weather) {
         tvTemp.text = String.format(getString(R.string.temp_info), weather.list!![0].main.temp)
 
-        weatherAdapter.clearItems()
-        weatherAdapter.setItems(weather.list)
+        weatherAdapter.updateItems(weather.list)
     }
 
     fun updateWeatherIcon(icon: String){

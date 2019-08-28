@@ -10,7 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class MainActivityPresenter @Inject constructor(
+class MainActivityPresenter(
     private val view: MainActivity,
     private val weatherInteractor: IWeatherInteractor,
     private val cityInteractor: ICityInteractor

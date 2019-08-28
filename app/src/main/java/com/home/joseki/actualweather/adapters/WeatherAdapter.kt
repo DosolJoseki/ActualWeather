@@ -16,12 +16,17 @@ class WeatherAdapter(
 ) : RecyclerView.Adapter<WeatherAdapter.ProjectViewHolder>() {
     private val weatherItems = ArrayList<WeatherItem>()
 
-    fun setItems(list: List<WeatherItem>) {
+    fun updateItems(list: List<WeatherItem>) {
+        clearItems()
+        setItems(list)
+    }
+
+    private fun setItems(list: List<WeatherItem>) {
         weatherItems.addAll(list)
         notifyDataSetChanged()
     }
 
-    fun clearItems() {
+    private fun clearItems() {
         weatherItems.clear()
         notifyDataSetChanged()
     }
